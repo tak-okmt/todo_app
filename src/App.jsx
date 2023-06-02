@@ -56,6 +56,11 @@ function App() {
     setCurrentTodo({...currentTodo, [target.name]: target.value});    
   }
 
+  function handleDeleteClick(todo) {
+    const deletedTodos = todos.filter(t => t.id !== todo.id);
+    setTodos(deletedTodos);
+  }
+
   return (
     <div style={{margin: '0px 200px'}}>
       {isEditing ? (
@@ -79,6 +84,7 @@ function App() {
       <TodoList 
         todos={todos}
         onEditClick={handleEditClick}
+        onDeleteClick={handleDeleteClick}
       />
     </div>
   )
