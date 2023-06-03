@@ -9,7 +9,7 @@ function App() {
 
   const [isEditing, setIsEditing] = useState(false);
   const [currentTodo, setCurrentTodo] = useState({}); // 編集中のTodoリストのstate
-  
+
   function handleFormSubmit(e) {
     e.preventDefault();
 
@@ -28,7 +28,12 @@ function App() {
       ])
     }
 
-    setTodo({});
+    // title, detailの初期化の方法について、初期化したいプロパティに空文字渡してあげれば実現できそうですね
+    setTodo({
+      ...todo,
+      title: "",
+      detail: ""
+    });
   }
 
   function handleInputChange(e) {
@@ -43,7 +48,7 @@ function App() {
 
   function handleEditFormSubmit(e) {
     e.preventDefault();
-    
+
     const updatedTodos = todos.map((todo)=>{
       return todo.id === currentTodo.id ? currentTodo : todo
     });
@@ -53,7 +58,7 @@ function App() {
 
   function handleEditInputChange(e) {
     const target = e.target;
-    setCurrentTodo({...currentTodo, [target.name]: target.value});    
+    setCurrentTodo({...currentTodo, [target.name]: target.value});
   }
 
   function handleDeleteClick(todo) {
@@ -68,20 +73,23 @@ function App() {
             currentTodo={currentTodo}
             setIsEditing={setIsEditing}
             onEditFormSubmit={handleEditFormSubmit}
-            onEditInputChange={handleEditInputChange}      
+            onEditInputChange={handleEditInputChange}
           />
         ) : (
-          <AddTodoForm 
+          <AddTodoForm
             todo={todo}
-            onFormSubmit={handleFormSubmit}
-            onInputChange={handleInputChange}
+            // 名前統一した方がわかりやすいと思います。handleFormSubmit={handleFormSubmit}
+            // AddTodoFormでもhandleFormSubmitとして受け取る
+            handleFormSubmit={handleFormSubmit}
+            // これも同じく↓handleInputChange={handleInputChange}
+            handleInputChange={handleInputChange}
           />
         )
       }
 
       <br /><br />
 
-      <TodoList 
+      <TodoList
         todos={todos}
         onEditClick={handleEditClick}
         onDeleteClick={handleDeleteClick}
