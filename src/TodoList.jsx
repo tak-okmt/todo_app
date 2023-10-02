@@ -24,7 +24,7 @@ export default function TodoList({
         <tbody>
           {todos.map((todo) => {
             return (
-              <tr key={todo.id}>                
+              <tr key={todo.id}>
                 <td>{todo.id}</td>
                 <td>{todo.title}</td>
                 <td>{todo.detail}</td>
@@ -39,7 +39,7 @@ export default function TodoList({
             )
           })}
         </tbody>
-      </table>    
+      </table>
     </>
   )
 }

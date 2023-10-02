@@ -8,22 +8,22 @@ export default function EditTodoForm({
     <form onSubmit={onEditFormSubmit}>
       <h2>TODO追加</h2>
       <label htmlFor="title">タイトル: </label>
-      <input 
-        type='text' 
-        name='title' 
-        placeholder='タイトル' 
-        value={currentTodo.title} 
+      <input
+        type='text'
+        name='title'
+        placeholder='タイトル'
+        value={currentTodo.title}
         onChange={onEditInputChange}
       />
       <br /><br />
 
       <label htmlFor="detail">詳細: </label>
-      <textarea 
-        name="detail" 
-        id="detail" 
-        cols="30" 
-        rows="3" 
-        value={currentTodo.detail} 
+      <textarea
+        name="detail"
+        id="detail"
+        cols="30"
+        rows="3"
+        value={currentTodo.detail}
         onChange={onEditInputChange}>
       </textarea>
       <br /><br />

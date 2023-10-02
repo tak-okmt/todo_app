@@ -9,11 +9,11 @@ function App() {
 
   const [isEditing, setIsEditing] = useState(false);
   const [currentTodo, setCurrentTodo] = useState({}); // 編集中のTodoリストのstate
-  
+
   function handleFormSubmit(e) {
     e.preventDefault();
 
-    if (todo.title === '' || todo.title === undefined){
+    if (todo.title === '' || todo.title === undefined) {
       alert('タイトルの入力が必要です');
       return;
     } else {
@@ -33,7 +33,7 @@ function App() {
 
   function handleInputChange(e) {
     const target = e.target;
-    setTodo({...todo, [target.name]: target.value});
+    setTodo({ ...todo, [target.name]: target.value });
   }
 
   function handleEditClick(todo) {
@@ -43,8 +43,8 @@ function App() {
 
   function handleEditFormSubmit(e) {
     e.preventDefault();
-    
-    const updatedTodos = todos.map((todo)=>{
+
+    const updatedTodos = todos.map((todo) => {
       return todo.id === currentTodo.id ? currentTodo : todo
     });
     setIsEditing(false);
@@ -53,7 +53,7 @@ function App() {
 
   function handleEditInputChange(e) {
     const target = e.target;
-    setCurrentTodo({...currentTodo, [target.name]: target.value});    
+    setCurrentTodo({ ...currentTodo, [target.name]: target.value });
   }
 
   function handleDeleteClick(todo) {
@@ -62,26 +62,26 @@ function App() {
   }
 
   return (
-    <div style={{margin: '0px 200px'}}>
+    <div style={{ margin: '0px 200px' }}>
       {isEditing ? (
-          <EditTodoForm
-            currentTodo={currentTodo}
-            setIsEditing={setIsEditing}
-            onEditFormSubmit={handleEditFormSubmit}
-            onEditInputChange={handleEditInputChange}      
-          />
-        ) : (
-          <AddTodoForm 
-            todo={todo}
-            onFormSubmit={handleFormSubmit}
-            onInputChange={handleInputChange}
-          />
-        )
+        <EditTodoForm
+          currentTodo={currentTodo}
+          setIsEditing={setIsEditing}
+          onEditFormSubmit={handleEditFormSubmit}
+          onEditInputChange={handleEditInputChange}
+        />
+      ) : (
+        <AddTodoForm
+          todo={todo}
+          onFormSubmit={handleFormSubmit}
+          onInputChange={handleInputChange}
+        />
+      )
       }
 
       <br /><br />
 
-      <TodoList 
+      <TodoList
         todos={todos}
         onEditClick={handleEditClick}
         onDeleteClick={handleDeleteClick}
