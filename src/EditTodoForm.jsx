@@ -10,6 +10,7 @@ export default function EditTodoForm({
       <label htmlFor="title">タイトル: </label>
       <input
         type='text'
+        id="title"
         name='title'
         placeholder='タイトル'
         value={currentTodo.title}
@@ -29,7 +30,7 @@ export default function EditTodoForm({
       <br /><br />
 
       <label htmlFor="status">ステータス: </label>
-      <select name="status" id="todoStatus-select" value={currentTodo.status} onChange={onEditInputChange}>
+      <select name="status" id="status" value={currentTodo.status} onChange={onEditInputChange}>
         <option value="notStartYet">未着手</option>
         <option value="inProgress">進行中</option>
         <option value="completed">完了</option>

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import AddTodoForm from "./AddTodoForm";
 import EditTodoForm from "./EditTodoForm";
 import TodoList from "./TodoList";
@@ -9,6 +9,9 @@ function App() {
 
   const [isEditing, setIsEditing] = useState(false);
   const [currentTodo, setCurrentTodo] = useState({}); // 編集中のTodoリストのstate
+
+  const [filter, setFilter] = useState({ id: '', deadline: '', status: '' });
+  const [filteredTodos, setFilteredTodos] = useState([])
 
   function handleFormSubmit(e) {
     e.preventDefault();
@@ -23,6 +26,7 @@ function App() {
           id: todos.length + 1,
           title: todo.title,
           detail: todo.detail,
+          deadline: todo.deadline,
           status: todo.status || 'notStartYet'
         }
       ])
@@ -61,6 +65,30 @@ function App() {
     setTodos(deletedTodos);
   }
 
+  function handleFilterChange(e) {
+    const target = e.target;
+    setFilter({ ...filter, [target.name]: target.value });
+  }
+
+  useEffect(() => {
+    const filteringTodos = () => {
+      const newArray = todos.filter((todo) => {
+        if (filter.id && filter.id !== todo.id) {
+          return false;
+        }
+        if (filter.deadline && filter.deadline !== todo.deadline) {
+          return false;
+        }
+        if (filter.status && filter.status !== todo.status) {
+          return false;
+        }
+        return todo;
+      })
+      setFilteredTodos(newArray)
+    }
+    filteringTodos()
+  }, [filter, todos])
+
   return (
     <div style={{ margin: '0px 200px' }}>
       {isEditing ? (
@@ -78,11 +106,34 @@ function App() {
         />
       )
       }
+      <label htmlFor="idFilter">ID: </label>
+      <input
+        type='text'
+        id="idFilter"
+        name='idFilter'
+        placeholder='ID'
+        value={filter.id}
+        onChange={(e) => handleFilterChange(e)}
+      />
+      <label htmlFor="deadlineFilter">期限: </label>
+      <input
+        type='date'
+        id="deadlineFilter"
+        name='deadline'
+        value={filter.deadline}
+        onChange={(e) => handleFilterChange(e)}
+      />
+      <select value={filter.status} onChange={(e) => handleFilterChange(e)}>
+        <option value="">すべて</option>
+        <option value="notStartYet">未着手</option>
+        <option value="inProgress">作業中</option>
+        <option value="completed">完了</option>
+      </select>
 
       <br /><br />
 
       <TodoList
-        todos={todos}
+        todos={filteredTodos}
         onEditClick={handleEditClick}
         onDeleteClick={handleDeleteClick}
       />

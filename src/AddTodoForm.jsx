@@ -9,6 +9,7 @@ export default function AddTodoForm({
       <label htmlFor="title">タイトル: </label>
       <input
         type='text'
+        id='title'
         name='title'
         placeholder='タイトル'
         value={todo.title}
@@ -27,8 +28,18 @@ export default function AddTodoForm({
       </textarea>
       <br /><br />
 
+      <label htmlFor="deadline">期限: </label>
+      <input
+        type='date'
+        id='deadline'
+        name='deadline'
+        value={todo.deadline}
+        onChange={onInputChange}
+      />
+      <br /><br />
+
       <label htmlFor="status">ステータス: </label>
-      <select name="status" id="todoStatus-select" value={todo.status} onChange={onInputChange}>
+      <select name="status" id="status" value={todo.status} onChange={onInputChange}>
         <option value="notStartYet">未着手</option>
         <option value="inProgress">進行中</option>
         <option value="completed">完了</option>
